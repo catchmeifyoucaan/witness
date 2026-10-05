@@ -49,9 +49,11 @@ http://localhost:5173/
 
 Do **not** use `http://127.0.0.1:5173/`.
 
-### Option B â€” hosted static UI (if enabled)
+### Option B — hosted static UI (GitHub Pages)
 
-If GitHub Pages (or another static host) is configured for this repo, use the URL listed in the Metropolis profile / README â€œLive Product Linkâ€ section.
+**Live Product Link:** https://catchmeifyoucaan.github.io/witness/
+
+Passkeys created on this host are bound to `catchmeifyoucaan.github.io`. They will **not** work on `http://localhost:5173`, and localhost passkeys will not work here. Use the same factory address either way.
 
 **Origin warning (critical):** Creating a passkey on a hosted hostname (for example `https://catchmeifyoucaan.github.io`) binds `rpId` and origin to that host. That creates a **different** account than one created on `http://localhost:5173`. There is **no recovery and no domain migration** by design. New origin = new passkey + new account. Paste the same factory address either way; the CREATE2 salt includes hostname/origin.
 
