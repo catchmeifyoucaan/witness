@@ -8,6 +8,8 @@ Witness is a non-custodial, single-authenticator smart account whose authorizati
 
 Hardened factory on Monad testnet: `0xB9a48ce4D7142BA985a9527cbFB9BaeD12Ef80Bc`.
 
+**Judges / DX package:** [docs/submission/JUDGE_ACCESS.md](docs/submission/JUDGE_ACCESS.md) · [WRITEUP](docs/submission/WRITEUP.md) · [checklist](docs/submission/METROPOLIS_CHECKLIST.md)
+
 
 ## What is on-chain, and what is only a ceremony
 
@@ -83,9 +85,13 @@ The factory deployment script should be broadcast with `--gas-limit 1600000`.
 | Monad mainnet | 143 | not targeted by this build |
 | Local Anvil, if you run one | 31337 | `http://127.0.0.1:8545` |
 
-The page defaults to testnet. The network switch also offers local Anvil. It does not offer a one-click mainnet send. Nothing in this repository was deployed to mainnet, and the factory was not deployed to testnet from this environment because there was no testnet MON.
+The page defaults to testnet. The network switch also offers local Anvil. It does not offer a one-click mainnet send. Nothing in this repository was deployed to mainnet.
+
+**Hardened factory (Monad testnet):** [`0xB9a48ce4D7142BA985a9527cbFB9BaeD12Ef80Bc`](https://testnet.monadvision.com/address/0xB9a48ce4D7142BA985a9527cbFB9BaeD12Ef80Bc)
 
 Faucet: <https://faucet.monad.xyz>. Explorer: <https://testnet.monadvision.com>.
+
+Judge access, pitch, and demo package: [`docs/submission/`](docs/submission/JUDGE_ACCESS.md).
 
 ## Run the page
 
@@ -151,6 +157,28 @@ Foundry refuses to etch a mock over `0x0100` on the Monad EVM (`cannot use preco
 ## What this build does not claim
 
 - No mainnet deployment.
-- No testnet deployment. The faucet was not used here.
-- Face ID was not run in this environment. The ceremony is what you do in the browser.
+- No recovery and no domain migration. **New origin = new passkey + new account.**
 - `signCount` is not enforced. Several platform authenticators keep it at zero. Replay protection is the nonce.
+- This is a protocol primitive demo, not a production consumer wallet.
+
+## Developer quick reference
+
+| | |
+| --- | --- |
+| Factory (testnet) | `0xB9a48ce4D7142BA985a9527cbFB9BaeD12Ef80Bc` |
+| Challenge | `keccak256(abi.encode(account, nonce, to, value, data, chainid, deadline))` |
+| `EXECUTE` gas limit | `480000` |
+| `CREATE` gas limit | `1600000` |
+| `FUND` gas limit | `60000` |
+| P256 precompile | `0x0100` (EIP-7951) |
+| Dev origin | **`http://localhost:5173/`** only (not `127.0.0.1`) |
+| Origin binding | Hostname + origin fixed at deployment; factory rejects cross-origin ceremonies |
+
+Sample demo account: [`0xf9f166fac6f1d591cb0c4438ef8334fbb4af968d`](https://testnet.monadvision.com/address/0xf9f166fac6f1d591cb0c4438ef8334fbb4af968d)
+
+Sample settle txs:
+
+- [`0x2eaf35ffe76cab6b…ce866`](https://testnet.monadvision.com/tx/0x2eaf35ffe76cab6b68c757a597896561931e26bab08f06fbde05b2b5417ce866)
+- [`0xd745b5aeae194471…0bd6`](https://testnet.monadvision.com/tx/0xd745b5aeae194471f5af20b39c12b99832300bb55276f911a3b8f5811b6d0bd6)
+
+Metropolis judges: start at [`docs/submission/JUDGE_ACCESS.md`](docs/submission/JUDGE_ACCESS.md).
