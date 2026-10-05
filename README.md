@@ -1,4 +1,4 @@
-# Witness
+﻿# Witness
 
 A passkey account for Monad. Face ID, Touch ID, or Windows Hello approves a MON transfer. The P256 precompile at `0x0100` checks that signature **inside the transaction**. The page never unwraps the passkey into a secp256k1 hot key. There is no seed phrase.
 
@@ -8,7 +8,9 @@ Witness is a non-custodial, single-authenticator smart account whose authorizati
 
 Hardened factory on Monad testnet: `0xB9a48ce4D7142BA985a9527cbFB9BaeD12Ef80Bc`.
 
-**Judges / DX package:** [docs/submission/JUDGE_ACCESS.md](docs/submission/JUDGE_ACCESS.md) · [WRITEUP](docs/submission/WRITEUP.md) · [checklist](docs/submission/METROPOLIS_CHECKLIST.md)
+**Live Product Link:** https://catchmeifyoucaan.github.io/witness/  
+
+**Judges / DX package:** [docs/submission/JUDGE_ACCESS.md](docs/submission/JUDGE_ACCESS.md) Â· [WRITEUP](docs/submission/WRITEUP.md) Â· [checklist](docs/submission/METROPOLIS_CHECKLIST.md)
 
 
 ## What is on-chain, and what is only a ceremony
@@ -52,7 +54,7 @@ Confirmed against [Monad's precompile docs](https://docs.monad.xyz/developer-ess
 
 ### High-s is accepted on purpose
 
-EIP-7951's equation treats `(r, n − s)` as valid. The same live call returned `1` for both `s` and `n − s` of the Wycheproof vector used in the tests (`n = 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551`). WebAuthn authenticators do not force `s` into the lower half. Rejecting high-s would fail about half of genuine Face ID approvals. A flipped `s` is a second encoding of the same approval; the nonce consumes it on first inclusion.
+EIP-7951's equation treats `(r, n âˆ’ s)` as valid. The same live call returned `1` for both `s` and `n âˆ’ s` of the Wycheproof vector used in the tests (`n = 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551`). WebAuthn authenticators do not force `s` into the lower half. Rejecting high-s would fail about half of genuine Face ID approvals. A flipped `s` is a second encoding of the same approval; the nonce consumes it on first inclusion.
 
 ## Gas limit
 
@@ -178,7 +180,8 @@ Sample demo account: [`0xf9f166fac6f1d591cb0c4438ef8334fbb4af968d`](https://test
 
 Sample settle txs:
 
-- [`0x2eaf35ffe76cab6b…ce866`](https://testnet.monadvision.com/tx/0x2eaf35ffe76cab6b68c757a597896561931e26bab08f06fbde05b2b5417ce866)
-- [`0xd745b5aeae194471…0bd6`](https://testnet.monadvision.com/tx/0xd745b5aeae194471f5af20b39c12b99832300bb55276f911a3b8f5811b6d0bd6)
+- [`0x2eaf35ffe76cab6bâ€¦ce866`](https://testnet.monadvision.com/tx/0x2eaf35ffe76cab6b68c757a597896561931e26bab08f06fbde05b2b5417ce866)
+- [`0xd745b5aeae194471â€¦0bd6`](https://testnet.monadvision.com/tx/0xd745b5aeae194471f5af20b39c12b99832300bb55276f911a3b8f5811b6d0bd6)
 
 Metropolis judges: start at [`docs/submission/JUDGE_ACCESS.md`](docs/submission/JUDGE_ACCESS.md).
+

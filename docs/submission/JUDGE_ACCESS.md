@@ -1,4 +1,4 @@
-# Witness — Judge Access Instructions
+﻿# Witness â€” Judge Access Instructions
 
 **For:** `metropolis@hackathon.monad.xyz`  
 **Repo:** https://github.com/catchmeifyoucaan/witness  
@@ -24,13 +24,13 @@ Witness has **no test login credentials**. Auth is a device passkey (WebAuthn / 
 - https://testnet.monadvision.com/tx/0x2eaf35ffe76cab6b68c757a597896561931e26bab08f06fbde05b2b5417ce866
 - https://testnet.monadvision.com/tx/0xd745b5aeae194471f5af20b39c12b99832300bb55276f911a3b8f5811b6d0bd6
 
-On-chain verification uses Monad’s P256 precompile at `0x0100` (EIP-7951). The factory and account code are in this repository under `src/`.
+On-chain verification uses Monadâ€™s P256 precompile at `0x0100` (EIP-7951). The factory and account code are in this repository under `src/`.
 
 ---
 
 ## Live product link (UI)
 
-### Option A — local demo (recommended, full control)
+### Option A â€” local demo (recommended, full control)
 
 WebAuthn requires `http://localhost` or `https`. **`127.0.0.1` is a different origin.** A passkey created on one will not assert on the other.
 
@@ -49,9 +49,9 @@ http://localhost:5173/
 
 Do **not** use `http://127.0.0.1:5173/`.
 
-### Option B — hosted static UI (if enabled)
+### Option B â€” hosted static UI (if enabled)
 
-If GitHub Pages (or another static host) is configured for this repo, use the URL listed in the Metropolis profile / README “Live Product Link” section.
+If GitHub Pages (or another static host) is configured for this repo, use the URL listed in the Metropolis profile / README â€œLive Product Linkâ€ section.
 
 **Origin warning (critical):** Creating a passkey on a hosted hostname (for example `https://catchmeifyoucaan.github.io`) binds `rpId` and origin to that host. That creates a **different** account than one created on `http://localhost:5173`. There is **no recovery and no domain migration** by design. New origin = new passkey + new account. Paste the same factory address either way; the CREATE2 salt includes hostname/origin.
 
@@ -61,7 +61,7 @@ If GitHub Pages (or another static host) is configured for this repo, use the UR
 
 - Prefer a **phone** (Face ID / fingerprint) or a **hardware security key**.
 - Use **Chrome** or **Edge**. Avoid browsers that break WebAuthn (for example some AI sidebars / Comet-style browsers).
-- **Windows Hello** often fails or is flaky for this ceremony — if create/get fails, switch to a phone or security key.
+- **Windows Hello** often fails or is flaky for this ceremony â€” if create/get fails, switch to a phone or security key.
 - You need a small amount of **testnet MON** for gas and to fund the account.
 
 ---
@@ -72,7 +72,7 @@ If GitHub Pages (or another static host) is configured for this repo, use the UR
 2. Note the **gas payer** address shown on the page (a page-local burner in `localStorage`, not an owner).
 3. Fund that address from the faucet: https://faucet.monad.xyz  
 4. Paste factory `0xB9a48ce4D7142BA985a9527cbFB9BaeD12Ef80Bc` if not already filled.
-5. Create a passkey → Deploy account → Fund the account with MON → Approve a small transfer with the passkey.
+5. Create a passkey â†’ Deploy account â†’ Fund the account with MON â†’ Approve a small transfer with the passkey.
 6. Open the explorer link the UI prints (or the sample txs above).
 
 Gas limits the client sends (Monad bills `gas_limit * price`):
@@ -83,7 +83,7 @@ Gas limits the client sends (Monad bills `gas_limit * price`):
 | `createAccount` | 1,600,000 |
 | Fund transfer | 60,000 |
 
-Keep **one** gas payer funded; you do not need a separate “login” wallet.
+Keep **one** gas payer funded; you do not need a separate â€œloginâ€ wallet.
 
 ---
 
@@ -98,7 +98,8 @@ Keep **one** gas payer funded; you do not need a separate “login” wallet.
 1. Passkey create prompt from the OS / phone.
 2. Account address predicted/deployed via factory CREATE2.
 3. Funding tx into the account (no passkey).
-4. Passkey assert on transfer → status lines show challenge binding → explorer receipt for `execute`.
+4. Passkey assert on transfer â†’ status lines show challenge binding â†’ explorer receipt for `execute`.
 5. Replay of the same approval fails (nonce consumed on-chain).
 
 Questions about the primitive (not end-user support): see `docs/submission/WRITEUP.md` and the root `README.md`.
+
