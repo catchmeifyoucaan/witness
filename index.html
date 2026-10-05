@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Witness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/witness/assets/index-Dk72TAve.js"></script>
+    <link rel="stylesheet" crossorigin href="/witness/assets/index-CQguDwsH.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="brand">
+          <span class="seal" aria-hidden="true"></span>
+          <div>
+            <p class="eyebrow">Witness</p>
+            <p class="track">Trust, Identity and AI · Monad</p>
+          </div>
+        </div>
+        <label class="net">
+          <span>Network</span>
+          <select id="network"></select>
+        </label>
+      </header>
+
+      <h1>Your face approves the transfer.<br /><em>The contract checks the signature.</em></h1>
+      <p class="lede">
+        A non-custodial, single-authenticator smart account. Your device authenticates the
+        transfer, and a disposable relayer only pays gas. Authorization is bound to this
+        WebAuthn origin and to the account deployed for it. This is not a recoverable wallet.
+      </p>
+      <p id="secure" class="warn" hidden></p>
+      <p id="origin-line" class="note"></p>
+
+      <ol>
+        <li>
+          <div class="step">
+            <span class="num">01</span>
+            <div>
+              <h2>Create the passkey</h2>
+              <p id="passkey-status"></p>
+              <button id="create-passkey" type="button">Create passkey</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step">
+            <span class="num">02</span>
+            <div>
+              <h2>Deploy the account</h2>
+              <p id="account-status" class="mono"></p>
+              <label class="field">
+                <span>Factory</span>
+                <input id="factory" spellcheck="false" autocomplete="off" placeholder="0x… from forge script" />
+              </label>
+              <p id="factory-version" class="fine"></p>
+              <p id="migration" class="warn" hidden></p>
+              <p class="fine">Balance <strong id="account-balance">—</strong> · nonce <strong id="nonce">—</strong></p>
+              <button id="deploy" type="button">Deploy account</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step">
+            <span class="num">03</span>
+            <div>
+              <h2>Fund it, then approve</h2>
+              <p>
+                Put MON in the account from the gas payer. Then the passkey authorizes a transfer
+                out. The challenge is read from the contract, so the page cannot quietly rebind it.
+              </p>
+              <div class="split">
+                <label class="field">
+                  <span>MON to add from the gas payer</span>
+                  <input id="fund-amount" inputmode="decimal" value="0.1" />
+                </label>
+                <button id="fund" type="button" class="ghost">Put MON in the account</button>
+              </div>
+              <label class="field">
+                <span>Recipient</span>
+                <input id="recipient" spellcheck="false" autocomplete="off" placeholder="0x…" />
+              </label>
+              <label class="field">
+                <span>MON the passkey sends</span>
+                <input id="amount" inputmode="decimal" value="0.05" />
+              </label>
+              <button id="approve" type="button" class="approve">Approve with passkey</button>
+              <p id="gas-line" class="fine"></p>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+
+      <section class="payer">
+        <div>
+          <p class="eyebrow">What this account cannot do</p>
+          <p>
+            Losing the device, deleting the passkey, or switching authenticators strands the MON.
+            There is no guardian and no seed. “Forget passkey record” only clears this browser.
+            It does not delete the credential, and it does not move the funds.
+          </p>
+          <p>
+            The public key, hostname, and origin are fixed when the account is deployed.
+            Moving from 127.0.0.1 to a real domain means a new passkey and a new account.
+            Approve a transfer of the balance to that new account first. Nothing rotates in place.
+          </p>
+        </div>
+      </section>
+
+      <section class="payer">
+        <div>
+          <p class="eyebrow">Gas payer</p>
+          <p id="burner-address" class="mono"></p>
+          <p>Balance <strong id="burner-balance">—</strong></p>
+          <p class="fine">
+            A disposable relayer, not the account’s signing key. It lives in local storage, so
+            anyone who can read this browser profile can spend its gas. They still cannot move
+            the account. Only a fresh passkey signature can.
+            <a id="faucet" href="https://faucet.monad.xyz" target="_blank" rel="noreferrer">Testnet faucet</a>
+          </p>
+        </div>
+        <div class="row">
+          <button id="refresh" type="button" class="ghost">Refresh</button>
+          <button id="new-burner" type="button" class="ghost">New gas payer</button>
+          <button id="forget-passkey" type="button" class="ghost">Forget passkey record</button>
+        </div>
+        <details>
+          <summary>Reveal gas-payer key</summary>
+          <p id="burner-key" class="mono"></p>
+          <button id="reveal-key" type="button" class="ghost">Show key</button>
+          <p class="fine">Testnet only. This is not a passkey secret. The passkey never leaves the authenticator.</p>
+        </details>
+      </section>
+
+      <p id="status" role="status">Ready.</p>
+      <section id="receipt" hidden></section>
+    </main>
+  </body>
+</html>
